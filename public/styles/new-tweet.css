@@ -1,0 +1,30 @@
+textarea {
+    font: inherit;
+    margin: 0;
+    padding: 5px;
+    width: 100%;
+}
+
+span.counter {
+    float: right;
+    font-style: italic;
+}
+
+main.container {
+    border-radius: 8px;
+    border: #848484 1px solid;
+    background-color: #eeeeee;
+}
+
+input {
+    background-color: #e8e7e7;
+    border: #949494 solid 1px;
+}
+
+h2 {
+    border-bottom: black solid 1px;
+}
+
+.negative {
+    color: red;
+}

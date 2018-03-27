@@ -18,15 +18,14 @@ body {
   font-family: 'Roboto Condensed', sans-serif;
   margin: 0;
   color: #244751;
-  background-color: #eee;
 }
 
 main {
-    width: 450px;
-    background-color: white;
-    margin: 0 auto;
-    margin-top: 65px;
-    padding: 8px;
+  width: 450px;
+  background-color: white;
+  margin: 0 auto;
+  margin-top: 125px;
+  padding: 8px;
 }
 
 /*
