@@ -1,3 +1,5 @@
+/**{ border: 1px solid red; }*/
+
 /* main body rounded edges, boarder, and bg color*/
 main.container {
     border-radius: 8px;
@@ -14,6 +16,7 @@ h2 {
 input {
     background-color: #e8e7e7;
     border: #949494 solid 1px;
+    float: left;
 }
 
 /*sizing text area to full width*/
@@ -28,6 +31,19 @@ span.counter {
     float: right;
     font-style: italic;
 }
+
+#error p {
+    color: red;
+    margin: 0;
+    padding-left: 10px;
+    padding-top: 0px;
+    padding-bottom: 0;
+}
+
+#error {
+    display: inline-block;
+}
+
 
 /*turns number red when negative number reached*/
 .negative {
