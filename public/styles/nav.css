@@ -34,3 +34,23 @@
     top: 25%;
     left: 120px;
 }
+
+#nav-bar .compose {
+    margin: 10px;
+    border-radius: 8px;
+    border: #848484 1px solid;
+    background-color: #c4ece6;
+    padding: 19px;
+    color: #00a087;
+    float: right;
+}
+
+#nav-bar .compose:hover {
+    margin: 10px;
+    border-radius: 8px;
+    border: #848484 1px solid;
+    background-color: white;
+    padding: 19px;
+    color: #00a087;
+    float: right;
+}
