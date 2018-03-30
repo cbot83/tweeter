@@ -8,14 +8,12 @@ $(document).ready(function() {
             url: "/tweets",
             method: "GET",
             dataType: "json",
+            // on complete, grabs mongodb data, reverses order, clears
+            // old tweets and renders all tweets
             complete: function (dataResponse) {
-
-                // console.log('HELLO ', dataResponse );
                         let tweetsString = dataResponse.responseText;
-                        // console.log('tweet string :', tweetsSting);
                         let tweetsArr = JSON.parse(tweetsString);
                         let reverseArr = tweetsArr.reverse();
-                        // calls render tweet to the json Arr that is loaded
                         $("#all-tweets").empty();
                         renderTweets(reverseArr);
                     }
@@ -33,41 +31,8 @@ $(document).ready(function() {
 
     // function to create a tweet article and populate it
     function createTweetElement(tweet) {
-        // creates a user variable for getting into tweetData object
+        // a user variable for getting into tweetData object
         let user = tweet.user
-
-        let tweetTimeInMin = Math.round(tweet.created_at / 60000);
-
-            // calculates time out of timestamp
-            function findTime (time) {
-                let milliSecondsPerMin = 60000;
-
-                let milliSecondsPerHour = 3600000;
-
-                let milliSecondsPerDay = 86400000;
-
-                let minPerHour = 60;
-                // Rounding to one decimal place for each time increment
-                let minutes = Math.round((($.now() - tweet.created_at) / milliSecondsPerMin));
-
-                let hours = Math.round(($.now() - tweet.created_at) / milliSecondsPerHour);
-
-                let days = Math.round(($.now() - tweet.created_at) / milliSecondsPerDay);
-
-                let years = Math.round(((((($.now() - tweet.created_at) / milliSecondsPerMin) / minPerHour) / 24) / 365));
-                // checks which time increment to return and post
-                if (minutes < 60) {
-                    return minutes + " minutes ago";
-                }
-                if (hours < 24) {
-                    return hours + " hours ago";
-                }
-                if (days < 365) {
-                    return days + " days ago";
-                }
-                return years + " years ago";
-            }
-
         // creates nested article for tweet posts and appends to section #all-tweets
         let $tweet = $(  `<article>
                             <header>
@@ -77,7 +42,7 @@ $(document).ready(function() {
                             </header>
                             <p>${escape(tweet.content.text)}</p>
                             <footer>
-                                ${findTime(tweetTimeInMin)}
+                                ${timeTweetHasExisted(tweet)}
                                 <div class='icons'>
                                     <i class="far fa-heart"></i>
                                     <i class="fas fa-retweet"></i>
@@ -89,22 +54,66 @@ $(document).ready(function() {
         return $tweet
     }
 
+    // calculates time out of timestamp
+    function timeTweetHasExisted (tweet) {
+        // plain english math variables
+        let milliSecondsPerMin = 60000;
+        let milliSecondsPerHour = 3600000;
+        let milliSecondsPerDay = 86400000;
+        let milliSecondsPerYear = 31556952000;
+        // Rounding to one decimal place for each time increment
+        let minutes = Math.round(($.now() - tweet.created_at) / milliSecondsPerMin);
+        let hours = Math.round(($.now() - tweet.created_at) / milliSecondsPerHour);
+        let days = Math.round(($.now() - tweet.created_at) / milliSecondsPerDay);
+        let years = Math.round(($.now() - tweet.created_at) / milliSecondsPerYear);
+        // checks for appropriate time increment to return for posting
+        if (minutes < 60) {
+            return minutes + " minutes ago";
+        }
+        if (hours < 24) {
+            return hours + " hours ago";
+        }
+        if (days < 365) {
+            return days + " days ago";
+        }
+    return years + " years ago";
+    }
+
     // Submit button function to stop normal behaviour
-    function onButtonClick(event) {
+    function tweetButtonClick(event) {
         // stop normal submit page reload
         event.preventDefault();
-        // renders verdict on long or blank tweets
-        let verdict = errorCheck();
-        // failing tweets are rejected with error message
-        if (verdict === 'failed') {
-            return;
-        }
+        // failing tweets are not permitted to post
         // passing tweets are given the priviledge of database entry
-        if (verdict === 'passed') {
-            postTweet();
-        }
+        if (!inputAuthenication()) {
+            return;
+        } else
+        postTweet();
+    }
 
-        // formAuthentication? postTweet() : return;  - this kind of idea with a boolean value and better names errorCheck
+    // checks it tweets are blank or too long
+    function inputAuthenication () {
+        // text variable for error checks
+        let inputText = $('#content').val();
+        // Error Message on blank entry
+        if (inputText === '') {
+            $("#error")
+                .empty();
+            $(`<p>Give us your thoughts.</p>`)
+                .fadeIn('slow')
+                .appendTo( "#error" );
+            return false;
+        }
+        // Error Message if message over 140 characters
+        if (inputText.length > 140) {
+            $("#error")
+                .empty();
+            $(`<p>You have too much on your mind!</p>`)
+                .fadeIn('slow')
+                .appendTo( "#error" );
+            return false;
+        }
+        return true;
     }
 
     // posts tweets
@@ -116,37 +125,12 @@ $(document).ready(function() {
               url: "/tweets/",
               method: "POST",
               data: serializedTweet,
+              // resets tweets and reloads with fresh data
               complete: function () {
                             resetInput();
                             loadTweets();
-                            }
+                        }
         });
-    }
-
-    // checks for bad tweets
-    function errorCheck () {
-        // text variable for error checks
-        let testSubject = $('#content').val();
-
-        // Error Message on blank entry
-        if (testSubject === '') {
-            $("#error")
-                .empty();
-            $(`<p>Give us your thoughts.</p>`)
-                .fadeIn('slow')
-                .appendTo( "#error" );
-            return 'failed';
-        }
-        // Error Message if message over 140 characters
-        if (testSubject.length > 140) {
-            $("#error")
-                .empty();
-            $(`<p>You have too much on your mind!</p>`)
-                .fadeIn('slow')
-                .appendTo( "#error" );
-            return 'failed';
-        }
-        return 'passed';
     }
 
     // Clears input field and resets counter to 140
@@ -155,29 +139,31 @@ $(document).ready(function() {
         $( '.new-tweet span' ).html(140);
     }
 
+    // slides compose window into app and targets the input field
+    function composeButtonClick() {
+        $( '.new-tweet' ).slideToggle();
+        $( '#content' ).focus();
+    }
+
     // clears error messages when form is clicked
     function clearError() {
          $("#error").empty();
     }
 
-    // slides compose window into app and targets the input field
-    function slideCompose() {
-        $( '.new-tweet' ).slideToggle();
-        $( '#content' ).focus();
-    }
-
-    // escape function for handing
+    // Escape function changes input text to plain text so people
+    // can't hack by coding in the input field
     function escape(str) {
         var div = document.createElement('div');
         div.appendChild(document.createTextNode(str));
         return div.innerHTML;
     }
 
+    // ... loads the event handlers
     function loadEventHandlers () {
         // handler for submitting the tweets
-        $( "#submitTweet" ).on('click', onButtonClick);
+        $( "#submitTweet" ).on('click', tweetButtonClick);
         // handler for compose button
-        $( "#compose" ).on('click', slideCompose);
+        $( "#compose" ).on('click', composeButtonClick);
         // handler for clearing error when text input is selected
         $( "#content" ).on('click', clearError);
     }

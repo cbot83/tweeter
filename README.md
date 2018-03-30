@@ -1,10 +1,10 @@
-# Tweeter Project
+## Tweeter Project
 
 Tweeter is a simple, single-page Twitter clone.
 
-This repository is the starter code for the project: Students will fork and clone this repository, then build upon it to practice their HTML, CSS, JS, jQuery and AJAX front-end skills, and their Node, Express and MongoDB back-end skills.
+This repository was built off of starter code from Lighthouse Labs. It was great experience with HTML, CSS, JS, jQuery and AJAX front-end skills. As well as Node, Express and MongoDB for back-end skills.
 
-## Getting Started
+## How to use
 
 1. Fork this repository, then clone your fork of this repository.
 2. Install dependencies using the `npm install` command.
@@ -15,3 +15,15 @@ This repository is the starter code for the project: Students will fork and clon
 
 - Express
 - Node 5.10.x or above
+- Mongodb
+- Font Awesome
+
+## Bonus Features
+
+- Breaks elapsed tweet time down to minutes, hours, days, and years
+- 3 stage fading over like, retweet, and flag icons (buttons not functioning yet)
+- Creepy error message if a blank field is entered
+
+
+# Screen Shot
+

@@ -1,5 +1,3 @@
-/**{ border: 1px solid red; }*/
-
 /* main body rounded edges, boarder, and bg color*/
 .new-tweet {
     border-radius: 8px;
@@ -53,8 +51,7 @@ span.counter {
     display: inline-block;
 }
 
-
 /*turns number red when negative number reached*/
-.negative {
+.negativeNum {
     color: red;
 }

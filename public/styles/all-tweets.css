@@ -72,38 +72,16 @@
     font-weight: lighter;
 }
 
+/*half opacity icons floated right (like, retweet, flag)*/
 #all-tweets .icons {
     float: right;
     padding-right: 10px;
     opacity: 0.5;
 }
 
+/*full opacity icons on hover floated right (like, retweet, flag)*/
 #all-tweets .icons:hover {
     float: right;
     padding-right: 10px;
     opacity: 1;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* add flag, retweet, and like icons on hover for posted tweets*/

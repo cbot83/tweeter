@@ -1,3 +1,6 @@
 node_modules/
 .env
 .DS_Store
+/server/data-files/initial-tweets.json
+/server/lib/in-memory-db.js
+mongo_example.js
