@@ -33,12 +33,21 @@
     top: 0;
     left: 0;
     float: left;
+    margin-left: -10px;
+    margin-top: -5px;
+    border-top-left-radius: 5px;
+}
+
+#all-tweets .userPic {
+    width: 65px;
+    height: 65px;
 }
 
 /*float name left against pic*/
 #all-tweets .name {
     float: left;
     padding: 5px;
+    padding-top: 13px;
     font-weight: bolder;
     font-size: x-large;
 }

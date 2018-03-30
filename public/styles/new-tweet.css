@@ -37,6 +37,7 @@ span.counter {
     float: right;
     font-style: italic;
     margin: 10px;
+    margin-right: 15px;
 }
 
 #error p {
@@ -54,4 +55,10 @@ span.counter {
 /*turns number red when negative number reached*/
 .negativeNum {
     color: red;
+}
+
+#all-tweets img {
+   padding:1px;
+   border:1px solid #021a40;
+   background-color:#adadad;
 }
