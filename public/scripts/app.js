@@ -9,7 +9,10 @@ $(document).ready(function() {
             method: "GET",
             dataType: "json",
             complete: function (dataResponse) {
+
+                // console.log('HELLO ', dataResponse );
                         let tweetsString = dataResponse.responseText;
+                        // console.log('tweet string :', tweetsSting);
                         let tweetsArr = JSON.parse(tweetsString);
                         let reverseArr = tweetsArr.reverse();
                         // calls render tweet to the json Arr that is loaded
@@ -75,6 +78,11 @@ $(document).ready(function() {
                             <p>${escape(tweet.content.text)}</p>
                             <footer>
                                 ${findTime(tweetTimeInMin)}
+                                <div class='icons'>
+                                    <i class="far fa-heart"></i>
+                                    <i class="fas fa-retweet"></i>
+                                    <i class="far fa-flag"></i>
+                                </div>
                             </footer>
                         </article>` ).
                         appendTo( "#all-tweets" );

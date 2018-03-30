@@ -72,6 +72,17 @@
     font-weight: lighter;
 }
 
+#all-tweets .icons {
+    float: right;
+    padding-right: 10px;
+    opacity: 0.5;
+}
+
+#all-tweets .icons:hover {
+    float: right;
+    padding-right: 10px;
+    opacity: 1;
+}
 
 
 
