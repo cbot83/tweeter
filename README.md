@@ -29,3 +29,5 @@ This repository was built off of starter code from Lighthouse Labs. It was great
 
 !["Gif of working app"](https://github.com/cbot83/tweeter/blob/master/Docs/Tweeter%20Gif%201.gif)
 
+!["Gif 2 of working app"](https://github.com/cbot83/tweeter/blob/master/Docs/Tweet%20Gif%202.gif)
+
